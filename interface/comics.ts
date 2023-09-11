@@ -9,10 +9,10 @@ export interface Comics {
 }
 
 export interface Data {
-  offset: string;
-  limit: string;
-  total: string;
-  count: string;
+  offset: number;
+  limit: number;
+  total: number;
+  count: number;
   results: Result[];
 }
 
@@ -30,7 +30,7 @@ export interface Result {
   ean: string;
   issn: string;
   format: string;
-  pageCount: string;
+  pageCount: number;
   textObjects: TextObject[];
   resourceURI: string;
   urls: URL[];

@@ -28,14 +28,22 @@ export const ComicCard = ({ id, title, image }: PropsCard) => {
 
   return (
     <>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia sx={{ height: 140 }} image={image} />
-        <CardContent sx={{ height: "100%" }}>
+      <Card
+        sx={{
+          maxWidth: 345,
+          height: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
+        }}
+      >
+        <CardMedia sx={{ height: 150 }} image={image} />
+        <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions sx={{ justifyContent: "space-between" }}>
           <Button
             variant="outlined"
             size="small"

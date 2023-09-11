@@ -3,14 +3,32 @@ import Head from "next/head";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
 import GridComponent from "dh-marvel/components/grid/GridComponent";
-import { Result } from "interface";
+import { Comics, Data, Result } from "interface";
 import { PropsCard } from "../components/comics/ComicCard";
+import { Typography, Box } from "@mui/material";
+import Pagination from "@mui/material/Pagination";
+import { useRouter } from "next/router";
 
 interface Props {
   transformComics: PropsCard[];
+  apiComics: Comics;
 }
 
-const Index: NextPage<Props> = ({ transformComics }) => {
+const itemsPerPage = 12;
+
+const Index: NextPage<Props> = ({ transformComics, apiComics }) => {
+  console.log(transformComics);
+  const router = useRouter();
+
+  const handlePage = (event: React.ChangeEvent<unknown>, page: number) => {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = (page - 1) * itemsPerPage + itemsPerPage;
+
+    console.log(startIndex, endIndex);
+
+    router.push(`/?page=${page}`);
+  };
+
   return (
     <>
       <Head>
@@ -20,14 +38,29 @@ const Index: NextPage<Props> = ({ transformComics }) => {
       </Head>
 
       <BodySingle title={"Comics"}>
+        <Typography align="center" gutterBottom variant="h5" component="div">
+          Los mejores comics que puedes encontrar!
+        </Typography>
+        <Box
+          sx={{ padding: "20px", display: "flex", justifyContent: "center" }}
+        >
+          <Pagination
+            count={Math.ceil(apiComics.data.total / itemsPerPage)}
+            onChange={handlePage}
+          />
+        </Box>
         <GridComponent comics={transformComics} />
       </BodySingle>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const apiComics = await getComics(0, 12);
+export const getServerSideProps: GetServerSideProps = async ({
+  res,
+  query,
+}) => {
+  const page = Number(query.page ?? 1);
+  const apiComics = await getComics(page, itemsPerPage);
 
   res.setHeader("Cache-Control", "public, s-maxage=10, stale-while-revalidate");
 
@@ -42,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {
     props: {
       transformComics,
+      apiComics,
     },
   };
 };
