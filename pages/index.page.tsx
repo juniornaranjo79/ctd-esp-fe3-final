@@ -7,10 +7,10 @@ import { Result } from "interface";
 import { PropsCard } from "../components/comics/ComicCard";
 
 interface Props {
-  apiComics: PropsCard[];
+  transformComics: PropsCard[];
 }
 
-const Index: NextPage<Props> = ({ apiComics }) => {
+const Index: NextPage<Props> = ({ transformComics }) => {
   return (
     <>
       <Head>
@@ -20,7 +20,7 @@ const Index: NextPage<Props> = ({ apiComics }) => {
       </Head>
 
       <BodySingle title={"Comics"}>
-        <GridComponent comics={apiComics} />
+        <GridComponent comics={transformComics} />
       </BodySingle>
     </>
   );
@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   return {
     props: {
-      apiComics: transformComics,
+      transformComics,
     },
   };
 };
