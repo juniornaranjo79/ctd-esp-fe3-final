@@ -15,9 +15,8 @@ const Faq: NextPage<Props> = ({ faqs }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const url = "https://marvel-comics-liart.vercel.app/";
-  //const url = "http://localhost:3000";
+/* export const getStaticProps: GetStaticProps = async () => {
+  const url = "http://localhost:3000";
   const res = await fetch(`${url}/api/faqs`);
   const faqs = await res.json();
 
@@ -26,6 +25,6 @@ export const getStaticProps: GetStaticProps = async () => {
       faqs,
     },
   };
-};
+}; */
 
 export default Faq;
