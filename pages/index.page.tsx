@@ -20,13 +20,13 @@ const Index: NextPage<Props> = ({ apiComics }) => {
       </Head>
 
       <BodySingle title={"Comics"}>
-        {/* <GridComponent comics={apiComics} /> */}
+        <GridComponent comics={apiComics} />
       </BodySingle>
     </>
   );
 };
 
-/* export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const apiComics = await getComics(0, 12);
 
   res.setHeader("Cache-Control", "public, s-maxage=10, stale-while-revalidate");
@@ -44,6 +44,6 @@ const Index: NextPage<Props> = ({ apiComics }) => {
       apiComics: transformComics,
     },
   };
-}; */
+};
 
 export default Index;
