@@ -13,7 +13,7 @@ const BodySingle: FC<BodySingleProps> = ({title, containerProps, children}: Body
             <Container maxWidth="xl" {...containerProps}>
                 <Stack direction={"column"} display={'flex'} justifyContent={'center'}>
                     {title &&
-                        <Typography variant={"h2"} my={2} textAlign={'center'} fontSize={28} fontWeight={600}>
+                        <Typography variant={"h2"} my={2} textAlign={'center'} fontSize={28} fontWeight={600} color='secondary'>
                             {title}
                         </Typography>
                     }
