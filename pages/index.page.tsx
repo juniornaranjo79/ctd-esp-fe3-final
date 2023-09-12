@@ -3,7 +3,7 @@ import Head from "next/head";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
 import GridComponent from "dh-marvel/components/grid/GridComponent";
-import { Comics, Data, Result } from "interface";
+import { Comics, Result } from "interface";
 import { PropsCard } from "../components/comics/ComicCard";
 import { Typography, Box } from "@mui/material";
 import Pagination from "@mui/material/Pagination";

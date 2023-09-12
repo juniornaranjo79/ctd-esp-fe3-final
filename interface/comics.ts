@@ -8,6 +8,12 @@ export interface Comics {
   etag: string;
 }
 
+export interface IComic extends Result {
+  price: number;
+  oldPrice: number;
+  stock: number;
+}
+
 export interface Data {
   offset: number;
   limit: number;
