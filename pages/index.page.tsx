@@ -3,7 +3,7 @@ import Head from "next/head";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
 import GridComponent from "dh-marvel/components/grid/GridComponent";
-import { Comics, Result } from "interface";
+import { Comics, Result } from "interface/comics";
 import { PropsCard } from "../components/comics/ComicCard";
 import { Typography, Box } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
@@ -17,14 +17,11 @@ interface Props {
 const itemsPerPage = 12;
 
 const Index: NextPage<Props> = ({ transformComics, apiComics }) => {
-  console.log(transformComics);
   const router = useRouter();
 
   const handlePage = (event: React.ChangeEvent<unknown>, page: number) => {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = (page - 1) * itemsPerPage + itemsPerPage;
-
-    console.log(startIndex, endIndex);
 
     router.push(`/?page=${page}`);
   };

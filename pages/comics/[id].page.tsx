@@ -11,15 +11,23 @@ import {
 } from "@mui/material";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
-import { Result, IComic } from "interface";
+import { Result, IComic } from "interface/comics";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import NextLink from "next/link";
 
 interface PropsComic {
   comic: IComic;
 }
 
 const ComicPage: NextPage<PropsComic> = ({ comic }) => {
+  const router = useRouter();
+
+  const handleComicBuy = () => {
+    router.push(`/checkout/${comic.id}`);
+  };
+
   return (
     <>
       <Head>
@@ -88,7 +96,14 @@ const ComicPage: NextPage<PropsComic> = ({ comic }) => {
                         key={i}
                         style={{ listStyleType: "none", marginRight: 10 }}
                       >
-                        {character.name}
+                        <NextLink
+                          href={`/characters/${character.resourceURI
+                            .split("/")
+                            .pop()}`}
+                          passHref
+                        >
+                          {character.name}
+                        </NextLink>
                       </li>
                     ))}
                   </ul>
@@ -102,6 +117,7 @@ const ComicPage: NextPage<PropsComic> = ({ comic }) => {
                   size="small"
                   disableElevation
                   disabled={comic.stock <= 0}
+                  onClick={() => handleComicBuy()}
                 >
                   {comic.stock <= 0 ? "Sin stock" : "Comprar"}
                 </Button>

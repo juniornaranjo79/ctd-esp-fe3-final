@@ -18,11 +18,11 @@ export interface PropsCard {
 export const ComicCard = ({ id, title, image }: PropsCard) => {
   const router = useRouter();
 
-  const handleComicDetail = (id: string) => {
+  const handleComicDetail = () => {
     router.push(`/comics/${id}`);
   };
 
-  const handleComicBuy = (id: string) => {
+  const handleComicBuy = () => {
     router.push(`/checkout/${id}`);
   };
 
@@ -48,7 +48,7 @@ export const ComicCard = ({ id, title, image }: PropsCard) => {
             variant="outlined"
             size="small"
             disableElevation
-            onClick={() => handleComicDetail(String(id))}
+            onClick={handleComicDetail}
           >
             Ver detalle
           </Button>
@@ -56,7 +56,7 @@ export const ComicCard = ({ id, title, image }: PropsCard) => {
             variant="contained"
             size="small"
             disableElevation
-            onClick={() => handleComicBuy(String(id))}
+            onClick={handleComicBuy}
           >
             Comprar
           </Button>
