@@ -10,7 +10,7 @@ const AddressForm = () => {
 
   return (
     <>
-      <Container>
+      <Container sx={{ padding: "12px" }}>
         <CustomTextField
           name="address"
           label="Dirección"

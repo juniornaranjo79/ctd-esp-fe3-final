@@ -17,6 +17,7 @@ import { CheckoutInput } from "dh-marvel/features/checkout/checkout.types";
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { title } from "process";
+import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 
 /* interface PropsCheckout {
   comic: IComic;
@@ -26,7 +27,7 @@ import { title } from "process";
 const CheckoutPage: NextPage = () => {
   const router = useRouter();
   const { comicId } = router.query;
-  console.log(comicId);
+  /* console.log(comicId); */
   const [dataComic, setDataComic] = useState<IComic | null>(null);
   console.log("dataComic", dataComic);
   const [status, setStatus] = useState("");
@@ -40,7 +41,7 @@ const CheckoutPage: NextPage = () => {
   const getComicById = async (id: number) => {
     const response = await fetch(`/api/comics/${id}`);
     const result = await response.json();
-    console.log(result);
+    /* console.log(result); */
     return result;
   };
 
@@ -48,22 +49,13 @@ const CheckoutPage: NextPage = () => {
     const id = Number(comicId);
     if (comicId) {
       getComicById(id).then((res) => {
-        console.log(res);
-        ///const resComic = transformComics(res);
+        /* console.log(res); */
         setDataComic(res);
       });
     } else {
       router.push("/");
     }
   }, [comicId, router]);
-
-  const transformComics: any = (dataComic: any) => {
-    return {
-      id: dataComic.id,
-      title: dataComic.title,
-      image: dataComic.thumbnail.path + "." + dataComic.thumbnail.extension,
-    };
-  };
 
   const apiCheckout = (data: ICheckout): CheckoutInput => {
     return {
@@ -101,7 +93,7 @@ const CheckoutPage: NextPage = () => {
     const dataForm: ICheckout = {
       ...data,
       name: dataComic.title,
-      image: dataComic.images,
+      image: dataComic.thumbnail.path + "." + dataComic.thumbnail.extension,
       price: dataComic.price,
     };
 
@@ -127,7 +119,7 @@ const CheckoutPage: NextPage = () => {
             pathname: "/buyout",
             query: {
               name: resParse.data.order.name,
-              image: resParse.data.order.images,
+              image: resParse.data.order.image,
               price: resParse.data.order.price,
               address: resParse.data.customer.address.address1,
             },
@@ -146,75 +138,82 @@ const CheckoutPage: NextPage = () => {
 
   return (
     <>
-      {!!dataComic ? (
-        <Container sx={{ paddingTop: "40px", paddingBottom: "40px" }}>
-          <Card sx={{ display: "flex" }}>
-            <Grid container spacing={3} columnSpacing={{ sx: 2, sm: 2, md: 4 }}>
+      <LayoutCheckout>
+        {!!dataComic ? (
+          <Container sx={{ paddingTop: "40px", paddingBottom: "40px" }}>
+            <Card sx={{ display: "flex" }}>
               <Grid
-                item
-                xs={12}
-                md={6}
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "column",
-                }}
+                container
+                spacing={3}
+                columnSpacing={{ sx: 2, sm: 2, md: 4 }}
               >
-                <Card
-                  elevation={0}
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
                   sx={{
-                    width: "100%",
-                    height: "100%",
                     display: "flex",
                     justifyContent: "space-between",
                     flexDirection: "column",
                   }}
                 >
-                  <CardMedia
-                    sx={{ height: 150 }}
-                    image={`${dataComic.thumbnail.path}.${dataComic.thumbnail.extension}`}
-                    /* image={dataComic.images} */
-                  />
-                  <CardContent sx={{ width: "100%", padding: "25px" }}>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {dataComic.title}
-                    </Typography>
-                    <Typography
-                      gutterBottom
-                      variant="h4"
-                      component="div"
-                      color="primary"
-                      sx={{ textDecoration: "line-through" }}
-                    >
-                      Antes: ${dataComic.oldPrice}
-                    </Typography>
-                    <Typography gutterBottom variant="h6" component="div">
-                      Precio: ${dataComic.price}
-                    </Typography>
-                  </CardContent>
-                </Card>
+                  <Card
+                    elevation={0}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <CardMedia
+                      sx={{ height: "100%" }}
+                      image={`${dataComic.thumbnail.path}.${dataComic.thumbnail.extension}`}
+                    />
+                    <CardContent sx={{ width: "100%", padding: "25px" }}>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {dataComic.title}
+                      </Typography>
+                      <Typography
+                        gutterBottom
+                        variant="h4"
+                        component="div"
+                        color="primary"
+                        sx={{ textDecoration: "line-through" }}
+                      >
+                        Antes: ${dataComic.oldPrice}
+                      </Typography>
+                      <Typography gutterBottom variant="h6" component="div">
+                        Precio: ${dataComic.price}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    alignContent: "center",
+                  }}
+                >
+                  <FormProvider {...methods}>
+                    <CustomForm onSubmit={handleFormSubmit} />
+                  </FormProvider>
+                </Grid>
               </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  alignContent: "center",
-                }}
-              >
-                <FormProvider {...methods}>
-                  <CustomForm onSubmit={handleFormSubmit} />
-                </FormProvider>
-              </Grid>
-            </Grid>
-          </Card>
-        </Container>
-      ) : (
-        "Traigo monda"
-      )}
+            </Card>
+          </Container>
+        ) : (
+          <Typography gutterBottom variant="h6" component="div">
+            No se encontro Información
+          </Typography>
+        )}
+      </LayoutCheckout>
     </>
   );
 };

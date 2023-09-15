@@ -11,7 +11,7 @@ const PersonalForm = () => {
 
   return (
     <>
-      <Container>
+      <Container sx={{ padding: "12px" }}>
         <CustomTextField
           name="firstName"
           label="Nombre"

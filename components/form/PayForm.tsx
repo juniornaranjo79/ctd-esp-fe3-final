@@ -10,7 +10,7 @@ const PayForm = () => {
 
   return (
     <>
-      <Container>
+      <Container sx={{ padding: "12px" }}>
         <CustomTextField
           name="cardNumber"
           label="Número de tarjeta"

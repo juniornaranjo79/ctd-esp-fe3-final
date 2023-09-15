@@ -98,8 +98,12 @@ const CustomForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
 
   return (
     <>
-      <Card elevation={0}>
-        <Stepper activeStep={activeStep} alternativeLabel>
+      <Card elevation={0} sx={{ padding: "10px" }}>
+        <Stepper
+          activeStep={activeStep}
+          sx={{ padding: "10px" }}
+          alternativeLabel
+        >
           {steps.map((item) => (
             <Step key={item}>
               <StepLabel>{item}</StepLabel>
