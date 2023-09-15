@@ -1,14 +1,10 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Divider,
-  Typography,
-  Button,
-  CardActions,
-} from "@mui/material";
+import Container from "@mui/material/Container";
+import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import { Divider, Button, CardActions } from "@mui/material";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
 import { Result, IComic } from "interface/comics";

@@ -23,7 +23,7 @@ export const ComicCard = ({ id, title, image }: PropsCard) => {
   };
 
   const handleComicBuy = () => {
-    router.push(`/checkout/${id}`);
+    router.push({ pathname: `/checkout/`, query: { comicId: id } });
   };
 
   return (
