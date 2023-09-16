@@ -201,17 +201,40 @@ const CheckoutPage: NextPage = () => {
                     alignContent: "center",
                   }}
                 >
-                  <FormProvider {...methods}>
-                    <CustomForm onSubmit={handleFormSubmit} />
-                  </FormProvider>
+                  {dataComic?.stock > 0 ? (
+                    <FormProvider {...methods}>
+                      <CustomForm onSubmit={handleFormSubmit} />
+                    </FormProvider>
+                  ) : (
+                    <Card
+                      sx={{
+                        height: 350,
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                      elevation={0}
+                    >
+                      <Typography variant="h3" mt={3}>
+                        Sin stock Lo sentimos
+                      </Typography>
+                    </Card>
+                  )}
                 </Grid>
               </Grid>
             </Card>
           </Container>
         ) : (
-          <Typography gutterBottom variant="h6" component="div">
-            No se encontro Información
-          </Typography>
+          <Container
+            sx={{
+              paddingTop: "40px",
+              paddingBottom: "40px",
+              textAlign: "center",
+            }}
+          >
+            <Typography gutterBottom variant="h6" component="div">
+              No se encontro Información
+            </Typography>
+          </Container>
         )}
       </LayoutCheckout>
     </>

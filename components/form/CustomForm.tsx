@@ -116,16 +116,32 @@ const CustomForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
           {activeStep === 2 && <PayForm />}
           <CardActions>
             {activeStep !== 0 && (
-              <Button onClick={handlePreviousStep}>Anterior</Button>
+              <Button
+                variant="outlined"
+                size="small"
+                disableElevation
+                onClick={handlePreviousStep}
+              >
+                Anterior
+              </Button>
             )}
             {activeStep !== 2 && (
-              <Button type="submit" onClick={handleNextStep}>
+              <Button
+                type="submit"
+                variant="contained"
+                size="small"
+                disableElevation
+                onClick={handleNextStep}
+              >
                 Siguiente
               </Button>
             )}
             {activeStep === 2 && (
               <Button
                 type="submit"
+                variant="contained"
+                size="small"
+                disableElevation
                 sx={{ display: activeStep === 2 ? "block" : "none" }}
                 disabled={isSubmitting}
               >
