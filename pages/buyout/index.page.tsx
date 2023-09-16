@@ -8,7 +8,6 @@ const BuyOutPage = () => {
   const router = useRouter();
 
   const { name, price, image, address } = router.query;
-  console.log(router.query);
 
   return (
     <LayoutCheckout>

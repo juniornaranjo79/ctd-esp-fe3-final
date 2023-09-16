@@ -18,7 +18,6 @@ const steps = ["Datos personales", "Dirección entrega", "Datos de pago"];
 
 const CustomForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
   const router = useRouter();
-  /* const { comicId } = router.query; */
 
   const methods = useForm({
     defaultValues: {

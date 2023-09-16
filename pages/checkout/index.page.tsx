@@ -19,17 +19,10 @@ import React, { FC, useEffect, useState } from "react";
 import { title } from "process";
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 
-/* interface PropsCheckout {
-  comic: IComic;
-  id: number;
-} */
-
 const CheckoutPage: NextPage = () => {
   const router = useRouter();
   const { comicId } = router.query;
-  /* console.log(comicId); */
   const [dataComic, setDataComic] = useState<IComic | null>(null);
-  console.log("dataComic", dataComic);
   const [status, setStatus] = useState("");
 
   type DataForm = yup.InferType<typeof schema>;
@@ -41,7 +34,6 @@ const CheckoutPage: NextPage = () => {
   const getComicById = async (id: number) => {
     const response = await fetch(`/api/comics/${id}`);
     const result = await response.json();
-    /* console.log(result); */
     return result;
   };
 
@@ -49,7 +41,6 @@ const CheckoutPage: NextPage = () => {
     const id = Number(comicId);
     if (comicId) {
       getComicById(id).then((res) => {
-        /* console.log(res); */
         setDataComic(res);
       });
     } else {
@@ -86,7 +77,6 @@ const CheckoutPage: NextPage = () => {
   };
 
   const handleFormSubmit = async (data: any) => {
-    console.log("Datos que se envían al servidor:", data);
     if (!dataComic) {
       return;
     }
@@ -110,7 +100,6 @@ const CheckoutPage: NextPage = () => {
       });
 
       const resParse = await response.json();
-      console.log({ resParse });
 
       if (response.ok) {
         // Si la respuesta es exitosa, redirige al usuario a la página de confirmación
@@ -240,37 +229,5 @@ const CheckoutPage: NextPage = () => {
     </>
   );
 };
-
-/* export const getStaticPaths: GetStaticPaths = async () => {
-  const apiComics = await getComics();
-
-  const paths = apiComics.data.results.map((comic: Result) => ({
-    params: { id: String(comic.id) },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params?.id;
-
-  try {
-    const comic = await getComic(Number(id));
-    return {
-      props: {
-        comic,
-      },
-    };
-  } catch (error) {
-    console.error("No se encontro el comic", error);
-    return {
-      props: {
-        comic: {},
-      },
-    };
-  }
-}; */
 
 export default CheckoutPage;
